@@ -1,0 +1,45 @@
+{
+    "name": "redustudio/catagger",
+    "description": "Create a collection of types",
+    "keywords": [
+        "laravel",
+        "redustudio",
+        "catagger",
+        "types"
+    ],
+    "homepage": "https://github.com/redustudio/catagger",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ramadani",
+            "email": "email.ramadani@gmail.com",
+            "homepage": "http://ramadani.id/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : ">=5.5.0",
+        "illuminate/support": "~5.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Redustudio\\Catagger\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Redustudio\\Catagger\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
