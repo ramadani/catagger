@@ -26,6 +26,7 @@ class CreateCataggersTable extends Migration
             $table->string('catagger_type');
             $table->integer('cataggable_id', false, true);
             $table->string('cataggable_type');
+            $table->timestamps();
         });
     }
 
@@ -36,7 +37,7 @@ class CreateCataggersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cataggers');
         Schema::dropIfExists('cataggables');
+        Schema::dropIfExists('cataggers');
     }
 }
