@@ -61,8 +61,10 @@ class ServiceProvider extends BaseServiceProvider
     protected function registerConfigurations()
     {
         $this->mergeConfigFrom(
-            $this->packagePath('config/config.php'), 'redustudio.catagger'
+            $this->packagePath('config/config.php'),
+            'redustudio.catagger'
         );
+        
         $this->publishes([
             $this->packagePath('config/config.php') => config_path('redustudio/catagger.php'),
         ], 'config');
@@ -76,6 +78,6 @@ class ServiceProvider extends BaseServiceProvider
      */
     protected function packagePath($path = '')
     {
-        return sprintf("%s/../%s", __DIR__ , $path);
+        return sprintf("%s/../%s", __DIR__, $path);
     }
 }
