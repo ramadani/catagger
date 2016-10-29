@@ -1,6 +1,6 @@
 # Catagger
 
-Creating types for Item on your Laravel App.
+Simple way to creating types for item on your Laravel App, such as category and tag for article or product, genre for movie, skill for user, etc.
 
 ## Installation
 
@@ -12,11 +12,19 @@ In order to install Catagger, just enter on your terminal
 $ composer require redustudio/catagger
 ```
 
-After installed,  add the ServiceProvider to the providers array in `config/app.php`
+In `config/app.php` file, add
 
 ```php
 Redustudio\Catagger\ServiceProvider::class,
 ```
+
+in the `providers` array and
+
+```php
+'Catagger' => Redustudio\Catagger\Facade::class,
+```
+
+to the `aliases` array.
 
 ## Usage
 
@@ -63,6 +71,10 @@ Catagger::sync($tags, $post->tags());
 $genres = ['Action', 'Adventure', 'Sci-Fi'];
 Catagger::sync($genres, $movie->genres());
 ```
+
+## Todo
+
+- Unit Test
 
 ## About ReduStudio
 
