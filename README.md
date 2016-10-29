@@ -24,7 +24,13 @@ in the `providers` array and
 'Catagger' => Redustudio\Catagger\Facade::class,
 ```
 
-to the `aliases` array.
+to the `aliases` array and
+
+```bash
+$ php artisan migrate
+```
+
+for migration catagger tables.
 
 ## Usage
 
