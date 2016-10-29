@@ -1,6 +1,68 @@
 # Catagger
 
-Create a collection of types
+Creating types for Item on your Laravel App.
+
+## Installation
+
+This package requires [Laravel 5.3][laravel-install-link] to install.
+
+In order to install Catagger, just enter on your terminal
+
+```bash
+$ composer require redustudio/catagger
+```
+
+After installed,  add the ServiceProvider to the providers array in `config/app.php`
+
+```php
+Redustudio\Catagger\ServiceProvider::class,
+```
+
+## Usage
+
+```php
+// Post
+use Redustudio\Catagger\CataggerTrait;
+
+class Post extends Model
+{
+    use CataggerTrait;
+
+    public function categories()
+    {
+        return $this->cataggers('category');
+    }
+
+    public function tags()
+    {
+        return $this->cataggers('tag');
+    }
+}
+
+// Movie
+use Redustudio\Catagger\CataggerTrait;
+
+class Movie extends Model
+{
+    use CataggerTrait;
+
+    public function genres()
+    {
+        return $this->cataggers('genre');
+    }
+}
+```
+
+```php
+// $categories = ['Programming', 'PHP']
+Catagger::save($categories, $post->categories());
+
+// $tags = ['PHP', 'Laravel', 'Package']
+Catagger::save($tags, $post->tags());
+
+// $genres = ['Action', 'Adventure', 'Sci-Fi']
+Catagger::save($genres, $movie->genres());
+```
 
 ## About ReduStudio
 
@@ -16,6 +78,7 @@ Just Contact Us At:
 The [MIT][mitlink] License (MIT). Please see [License File](LICENSE.md) for more information.
 
 
+[laravel-install-link]: https://laravel.com/docs/5.3#installation
 [screenshot]: admin.png
 [homepage]: http://redustudio.com/
 [mailto]: mailto:redustudio@gmail.com
