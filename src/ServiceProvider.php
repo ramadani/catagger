@@ -2,6 +2,7 @@
 
 namespace Redustudio\Catagger;
 
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 /**
@@ -25,7 +26,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(CataggerContract::class, Catagger::class);
     }
 
     /**
@@ -37,6 +38,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->registerMigrations();
         $this->registerConfigurations();
+        $this->registerEvents();
     }
 
     /**
@@ -64,10 +66,26 @@ class ServiceProvider extends BaseServiceProvider
             $this->packagePath('config/config.php'),
             'redustudio.catagger'
         );
-        
+
         $this->publishes([
             $this->packagePath('config/config.php') => config_path('redustudio/catagger.php'),
         ], 'config');
+    }
+
+    /**
+     * Register events
+     *
+     * @return void
+     */
+    protected function registerEvents()
+    {
+        $this->app->make(Dispatcher::class)->listen('cataggable.sync', function ($type) {
+
+            // It's a bad design?
+            $this->app->singleton('cataggable.catagger_type', function () use ($type) {
+                return $type;
+            });
+        });
     }
 
     /**
