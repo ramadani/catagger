@@ -54,14 +54,14 @@ class Movie extends Model
 ```
 
 ```php
-// $categories = ['Programming', 'PHP']
-Catagger::save($categories, $post->categories());
+$category = 'Programming';
+Catagger::sync($category, $post->categories());
 
-// $tags = ['PHP', 'Laravel', 'Package']
-Catagger::save($tags, $post->tags());
+$tags = ['PHP', 'Laravel', 'Package'];
+Catagger::sync($tags, $post->tags());
 
-// $genres = ['Action', 'Adventure', 'Sci-Fi']
-Catagger::save($genres, $movie->genres());
+$genres = ['Action', 'Adventure', 'Sci-Fi'];
+Catagger::sync($genres, $movie->genres());
 ```
 
 ## About ReduStudio
