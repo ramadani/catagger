@@ -24,7 +24,7 @@ in the `providers` array and
 
 to the `aliases` array.
 
-If you not using Laravel 5.3, run this command for publishing migration.
+If you are not using Laravel 5.3, run this command for publishing migration.
 
 ```bash
 $ php artisan vendor:publish --provider="Redustudio\Catagger\ServiceProvider" --tag="migrations"
@@ -61,6 +61,15 @@ class Post extends Model
     }
 }
 
+$category = 'Programming';
+Catagger::sync($category, $post->categories());
+
+$tags = ['PHP', 'Laravel', 'Package'];
+Catagger::sync($tags, $post->tags());
+
+```
+
+```php
 // Movie
 use Redustudio\Catagger\CataggerTrait;
 
@@ -73,14 +82,6 @@ class Movie extends Model
         return $this->cataggers('genre');
     }
 }
-```
-
-```php
-$category = 'Programming';
-Catagger::sync($category, $post->categories());
-
-$tags = ['PHP', 'Laravel', 'Package'];
-Catagger::sync($tags, $post->tags());
 
 $genres = ['Action', 'Adventure', 'Sci-Fi'];
 Catagger::sync($genres, $movie->genres());
