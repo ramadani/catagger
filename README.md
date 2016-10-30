@@ -4,8 +4,6 @@ Simple way to creating types for item on your Laravel App, such as category and 
 
 ## Installation
 
-This package requires [Laravel 5.3][laravel-install-link] to install.
-
 In order to install Catagger, just enter on your terminal
 
 ```bash
@@ -24,7 +22,15 @@ in the `providers` array and
 'Catagger' => Redustudio\Catagger\Facade::class,
 ```
 
-to the `aliases` array and
+to the `aliases` array.
+
+If you not using Laravel 5.3, run this command for publishing migration.
+
+```bash
+$ php artisan vendor:publish --provider="Redustudio\Catagger\ServiceProvider" --tag="migrations"
+```
+
+then
 
 ```bash
 $ php artisan migrate
@@ -33,6 +39,8 @@ $ php artisan migrate
 for migration catagger tables.
 
 ## Usage
+
+#### Attaching to Item
 
 ```php
 // Post
@@ -78,9 +86,13 @@ $genres = ['Action', 'Adventure', 'Sci-Fi'];
 Catagger::sync($genres, $movie->genres());
 ```
 
+#### Detaching to Item
+
+// Todo
+
 ## Todo
 
-- Unit Test
+- [ ] Unit Test
 
 ## About ReduStudio
 
@@ -96,7 +108,6 @@ Just Contact Us At:
 The [MIT][mitlink] License (MIT). Please see [License File](LICENSE.md) for more information.
 
 
-[laravel-install-link]: https://laravel.com/docs/5.3#installation
 [screenshot]: admin.png
 [homepage]: http://redustudio.com/
 [mailto]: mailto:redustudio@gmail.com

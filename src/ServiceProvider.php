@@ -48,7 +48,9 @@ class ServiceProvider extends BaseServiceProvider
      */
     protected function registerMigrations()
     {
-        $this->loadMigrationsFrom($this->packagePath('database/migrations'));
+        if ($this->isLaravel53AndUp()) {
+            $this->loadMigrationsFrom($this->packagePath('database/migrations'));
+        }
 
         $this->publishes([
             $this->packagePath('database/migrations') => database_path('/migrations')
@@ -97,5 +99,15 @@ class ServiceProvider extends BaseServiceProvider
     protected function packagePath($path = '')
     {
         return sprintf("%s/../%s", __DIR__, $path);
+    }
+
+    /**
+     * Check Laravel 5.3 or not
+     *
+     * @return bool
+     */
+    protected function isLaravel53AndUp()
+    {
+        return version_compare($this->app->version(), '5.3.0', '>=');
     }
 }
