@@ -62,10 +62,10 @@ class Post extends Model
 }
 
 $category = 'Programming';
-Catagger::sync($category, $post->categories());
+Catagger::sync($post->categories(), $category);
 
 $tags = ['PHP', 'Laravel', 'Package'];
-Catagger::sync($tags, $post->tags());
+Catagger::sync($post->tags(), $tags);
 
 ```
 
@@ -84,12 +84,21 @@ class Movie extends Model
 }
 
 $genres = ['Action', 'Adventure', 'Sci-Fi'];
-Catagger::sync($genres, $movie->genres());
+Catagger::sync($movie->genres(), $genres);
 ```
 
-#### Detaching to Item
+#### Detaching from Item
 
-// Todo
+```php
+$genres = ['Action', 'Adventure', 'Sci-Fi'];
+Catagger::sync($movie->genres(), $genres);
+
+$genres = ['Action', 'Sci-Fi'];
+Catagger::detach($movie->genres(), $genres); // detaching 'Action' and `Sci-Fi`
+
+// detaching all genres
+Catagger::detach($movie->genres());
+```
 
 ## Todo
 

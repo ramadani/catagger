@@ -21,10 +21,20 @@ interface CataggerContract
     /**
      * Sync input to given relation
      *
-     * @param  string|array     $input    [description]
-     * @param  MorphToMany      $relation [description]
+     * @param  MorphToMany          $relation [description]
+     * @param  string|int|array     $input    [description]
      *
      * @return void
      */
-    public function sync($input, MorphToMany $relation);
+    public function sync(MorphToMany $relation, $input);
+
+    /**
+     * Detaching from model
+     *
+     * @param  MorphToMany          $relation [description]
+     * @param  string|int|array     $input
+     *
+     * @return void
+     */
+    public function detach(MorphToMany $relation, $input = []);
 }

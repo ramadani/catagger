@@ -19,20 +19,18 @@ class Catagger implements CataggerContract
      */
     public function save($input)
     {
-        $catagger = Model::firstOrCreate(['name' => $input, 'slug' => str_slug($input)]);
-
-        return $catagger;
+        return $this->firstOrCreate($input);
     }
 
     /**
      * Sync input to given relation
      *
-     * @param  string|array     $input    [description]
-     * @param  MorphToMany      $relation [description]
+     * @param  MorphToMany          $relation [description]
+     * @param  string|int|array     $input    [description]
      *
      * @return void
      */
-    public function sync($input, MorphToMany $relation)
+    public function sync(MorphToMany $relation, $input)
     {
         $data = [];
 
@@ -43,18 +41,63 @@ class Catagger implements CataggerContract
             foreach ($input as $value) {
                 $catagger = $this->save($value);
 
-                $data[$catagger->getKey()] = [
-                    'catagger_type' => $type
-                ];
+                $data[$catagger->getKey()] = ['catagger_type' => $type];
             }
-        } elseif (is_string($input)) {
+        } else if (is_string($input)) {
             $catagger = $this->save($input);
 
-            $data[$catagger->getKey()] = [
-                'catagger_type' => $type
-            ];
+            $data[$catagger->getKey()] = ['catagger_type' => $type];
+        } else if (is_numeric($input)) {
+            $data[$input] = ['catagger_type' => $type];
         }
 
-        $relation->sync($data);
+        if (count($data)) {
+            $relation->sync($data);
+        }
+    }
+
+    /**
+     * Detaching from model
+     *
+     * @param  MorphToMany          $relation [description]
+     * @param  string|int|array     $input
+     *
+     * @return void
+     */
+    public function detach(MorphToMany $relation, $input = [])
+    {
+        $listOfId = [];
+
+        if (is_array($input)) {
+            foreach ($input as $value) {
+                $item = $this->firstOrCreate($value);
+
+                array_push($listOfId, $item->getKey());
+            }
+        } else if (is_string($input)) {
+            $item = $this->firstOrCreate($value);
+
+            array_push($listOfId, $item->getKey());
+        } else if (is_numeric($input)) {
+            array_push($listOfId, $input);
+        }
+
+        if (count($listOfId)) {
+            $relation->detach($listOfId);
+        } else {
+            $relation->detach();
+        }
+    }
+
+    /**
+     * First or Create
+     *
+     * @param  string $input
+     *
+     * @return Model
+     */
+    protected function firstOrCreate($input)
+    {
+        return Model::firstOrCreate(['name' => $input, 'slug' => str_slug($input)]);
     }
 }
